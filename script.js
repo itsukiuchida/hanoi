@@ -43,7 +43,6 @@ let pickUpStatus = null
 class PickUpButton {
     constructor(area) {
         this.dom = document.getElementById(`${area}Btn`)
-        this.dom.value = "持ち上げる"
         this.dom.onclick = () => {
             btnEvent(area)
             render()
@@ -68,19 +67,9 @@ function btnEvent(area) {
             "area": area,
             "size": hanoiStatus[area].pop()
         }
-        for (let area of ["left", "center", "right"]) {
-            buttons[area].updateLabel("ここに落とす")
-            let isActive = hanoiStatus[area].length === 0 || pickUpStatus.size < hanoiStatus[area].at(-1)
-            buttons[area].active(isActive)
-        }
     } else { // 落とす動作
         hanoiStatus[area].push(pickUpStatus.size)
         pickUpStatus = null
-        for (let area of ["left", "center", "right"]) {
-            buttons[area].updateLabel("持ち上げる")
-            let isActive = hanoiStatus[area].length !== 0   
-            buttons[area].active(isActive)
-        }
     }
 }
 
@@ -92,9 +81,6 @@ function checkClear() {
             "center": [],
             "right": []
         }
-        buttons.left.active(true)
-        buttons.center.active(false)
-        buttons.right.active(false)
         render()
     }
 }
@@ -104,10 +90,6 @@ buttons = {
     "center": new PickUpButton("center"),
     "right": new PickUpButton("right")
 }
-
-buttons.left.active(true)
-buttons.center.active(false)
-buttons.right.active(false)
 
 function render() {
     for (let area of ["left", "center", "right"]) {
@@ -122,7 +104,15 @@ function render() {
         } else {
             cells[area][0].style.width = "0px"
         }
-        
+        if (pickUpStatus === null) {
+            buttons[area].updateLabel("持ち上げる")
+            let isActive = hanoiStatus[area].length !== 0   
+            buttons[area].active(isActive)
+        } else {
+            buttons[area].updateLabel("ここに落とす")
+            let isActive = hanoiStatus[area].length === 0 || pickUpStatus.size < hanoiStatus[area].at(-1)
+            buttons[area].active(isActive)
+        }
     }
 }
 
