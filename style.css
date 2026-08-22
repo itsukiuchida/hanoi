@@ -1,0 +1,25 @@
+#hanoi {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+#columnA,
+#columnB,
+#columnC {
+  width: 180px;
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  border-bottom: 2px solid black;
+}
+
+.bar {
+  height: 35px;
+  background-color: black;
+  margin: 1px 0;
+}
