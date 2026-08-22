@@ -47,6 +47,7 @@ class PickUpButton {
         this.dom.onclick = () => {
             btnEvent(area)
             render()
+            setTimeout(checkClear,50)
         }
     }
 
@@ -83,26 +84,30 @@ function btnEvent(area) {
     }
 }
 
+function checkClear() {
+    if (hanoiStatus.center.length === 7 || hanoiStatus.right.length === 7) {
+        alert("クリア！おめでとう！")
+        hanoiStatus = {
+            "left": [7,6,5,4,3,2,1],
+            "center": [],
+            "right": []
+        }
+        buttons.left.active(true)
+        buttons.center.active(false)
+        buttons.right.active(false)
+        render()
+    }
+}
+
 buttons = {
     "left": new PickUpButton("left"),
     "center": new PickUpButton("center"),
     "right": new PickUpButton("right")
 }
 
-
 buttons.left.active(true)
 buttons.center.active(false)
 buttons.right.active(false)
-
-// セルの場所と大きさを指定して、そのセルの大きさを変える
-// area: 列("left","center","right")
-// order: 上から何番目か(0～7) 0はピックアップ、上から順に1～7
-// size: セルのサイズ(0～7) 0は空(柱の太さ)、小さい順に1～7
-function updateCellSize(area, order, size) {
-    cells[area][order].style.width = sizeList[size]
-}
-
-
 
 function render() {
     for (let area of ["left", "center", "right"]) {
@@ -122,12 +127,3 @@ function render() {
 }
 
 render()
-
-// for (let i=1 ; i<=7 ; i++) {
-//     updateCellSize("left",i,i)
-// }
-// for (let area of ["center", "right"]) {
-//     for (let i=1 ; i<=7 ; i++) {
-//         updateCellSize(area,i,0)
-//     }
-// }
