@@ -1,13 +1,13 @@
 #hanoi {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 0px;
 }
 
-#columnA,
-#columnB,
-#columnC {
-  width: 180px;
+#leftArea,
+#centerArea,
+#rightArea {
+  width: 200px;
   height: 500px;
 
   display: flex;
@@ -15,11 +15,40 @@
   justify-content: flex-end;
   align-items: center;
 
-  border-bottom: 2px solid black;
+  border-bottom: 20px solid black;
 }
 
-.bar {
-  height: 35px;
-  background-color: black;
-  margin: 1px 0;
+.pickUpBtn {
+  height: 45px;
+  margin-bottom: 60px;
+  width: 150px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: bold;
+  color: #000000;
+  background-color: #b0c9ff;
+  transition: .1s;
+}
+
+.pickUpBtn:active {
+  background-color: #709dff;
+}
+
+.pickUpBtn:disabled {
+  background-color: #c2c5ca;
+  color: #7e7e7e;
+}
+
+.cell {
+  height: 30px;
+  background-color: rgb(146, 124, 101);
+  margin: 0px;
+}
+
+#LPickUp,
+#CPickUp,
+#RPickUp {
+  margin-bottom: 50px;
 }
